@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Minha App - ArgoCD Test</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap"
+    rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     :root {
-      --blue-deep:   #0a1628;
-      --blue-mid:    #0d2a5e;
+      --blue-deep: #0a1628;
+      --blue-mid: #0d2a5e;
       --blue-bright: #1a56db;
-      --blue-neon:   #38bdf8;
-      --blue-light:  #bae6fd;
-      --white:       #f0f6ff;
+      --blue-neon: #38bdf8;
+      --blue-light: #bae6fd;
+      --white: #f0f6ff;
     }
 
     body {
@@ -38,16 +47,16 @@
       position: fixed;
       inset: 0;
       background-image:
-        linear-gradient(rgba(56,189,248,.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(56,189,248,.04) 1px, transparent 1px);
+        linear-gradient(rgba(56, 189, 248, .04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, .04) 1px, transparent 1px);
       background-size: 48px 48px;
       pointer-events: none;
     }
 
     .card {
       position: relative;
-      background: rgba(13,42,94,.55);
-      border: 1px solid rgba(56,189,248,.25);
+      background: rgba(13, 42, 94, .55);
+      border: 1px solid rgba(56, 189, 248, .25);
       border-radius: 20px;
       padding: 48px 52px;
       max-width: 520px;
@@ -55,23 +64,30 @@
       text-align: center;
       backdrop-filter: blur(18px);
       box-shadow:
-        0 0 0 1px rgba(56,189,248,.1),
-        0 24px 64px rgba(0,0,0,.5),
-        inset 0 1px 0 rgba(255,255,255,.06);
+        0 0 0 1px rgba(56, 189, 248, .1),
+        0 24px 64px rgba(0, 0, 0, .5),
+        inset 0 1px 0 rgba(255, 255, 255, .06);
       animation: fadeUp .7s ease both;
     }
 
     @keyframes fadeUp {
-      from { opacity:0; transform:translateY(28px); }
-      to   { opacity:1; transform:translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(56,189,248,.12);
-      border: 1px solid rgba(56,189,248,.35);
+      background: rgba(56, 189, 248, .12);
+      border: 1px solid rgba(56, 189, 248, .35);
       border-radius: 999px;
       padding: 4px 14px;
       font-family: 'Space Mono', monospace;
@@ -84,7 +100,8 @@
 
     .badge::before {
       content: '';
-      width: 7px; height: 7px;
+      width: 7px;
+      height: 7px;
       background: var(--blue-neon);
       border-radius: 50%;
       box-shadow: 0 0 6px var(--blue-neon);
@@ -92,8 +109,17 @@
     }
 
     @keyframes pulse {
-      0%,100% { opacity:1; transform:scale(1);   }
-      50%      { opacity:.4; transform:scale(.8); }
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: .4;
+        transform: scale(.8);
+      }
     }
 
     h1 {
@@ -119,7 +145,7 @@
 
     .divider {
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(56,189,248,.3), transparent);
+      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, .3), transparent);
       margin: 32px 0;
       animation: fadeUp .7s .25s ease both;
     }
@@ -132,8 +158,8 @@
     }
 
     .info-box {
-      background: rgba(26,86,219,.15);
-      border: 1px solid rgba(56,189,248,.15);
+      background: rgba(26, 86, 219, .15);
+      border: 1px solid rgba(56, 189, 248, .15);
       border-radius: 12px;
       padding: 16px;
     }
@@ -167,7 +193,7 @@
       color: #fff;
       cursor: pointer;
       letter-spacing: .02em;
-      box-shadow: 0 0 24px rgba(26,86,219,.5);
+      box-shadow: 0 0 24px rgba(26, 86, 219, .5);
       transition: background .2s, transform .15s, box-shadow .2s;
       animation: fadeUp .7s .35s ease both;
     }
@@ -175,22 +201,25 @@
     .btn:hover {
       background: #1d4ed8;
       transform: translateY(-2px);
-      box-shadow: 0 0 36px rgba(56,189,248,.5);
+      box-shadow: 0 0 36px rgba(56, 189, 248, .5);
     }
 
-    .btn:active { transform: translateY(0); }
+    .btn:active {
+      transform: translateY(0);
+    }
 
     /* version tag */
     footer {
       margin-top: 28px;
       font-family: 'Space Mono', monospace;
       font-size: .68rem;
-      color: rgba(186,230,253,.35);
+      color: rgba(186, 230, 253, .35);
       letter-spacing: .08em;
       animation: fadeUp .7s .4s ease both;
     }
   </style>
 </head>
+
 <body>
 
   <div class="card">
@@ -205,7 +234,7 @@
     <div class="info-grid">
       <div class="info-box">
         <div class="label">Status</div>
-        <div class="value">✅ Online</div>
+        <div class="value">✅ OffLine</div>
       </div>
       <div class="info-box">
         <div class="label">Ambiente</div>
@@ -227,4 +256,5 @@
   <footer>BUILD · 2026 · ARGOCD TEST APP</footer>
 
 </body>
+
 </html>
