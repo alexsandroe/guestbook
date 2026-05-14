@@ -1,14 +1,254 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: guestbook-html
+  namespace: default
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>Minha App - ArgoCD Test</title>
+      <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
+      <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+          --blue-deep:   #0a1628;
+          --blue-mid:    #0d2a5e;
+          --blue-bright: #1a56db;
+          --blue-neon:   #38bdf8;
+          --blue-light:  #bae6fd;
+          --white:       #f0f6ff;
+        }
+        body {
+          min-height: 100vh;
+          background: var(--blue-deep);
+          background-image:
+            radial-gradient(ellipse 80% 60% at 50% -10%, #1a3a7a 0%, transparent 70%),
+            radial-gradient(ellipse 40% 40% at 90% 80%, #0e3060 0%, transparent 60%);
+          font-family: 'Syne', sans-serif;
+          color: var(--white);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+        }
+        body::before {
+          content: '';
+          position: fixed;
+          inset: 0;
+          background-image:
+            linear-gradient(rgba(56,189,248,.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(56,189,248,.04) 1px, transparent 1px);
+          background-size: 48px 48px;
+          pointer-events: none;
+        }
+        .card {
+          position: relative;
+          background: rgba(13,42,94,.55);
+          border: 1px solid rgba(56,189,248,.25);
+          border-radius: 20px;
+          padding: 48px 52px;
+          max-width: 520px;
+          width: 90%;
+          text-align: center;
+          backdrop-filter: blur(18px);
+          box-shadow:
+            0 0 0 1px rgba(56,189,248,.1),
+            0 24px 64px rgba(0,0,0,.5),
+            inset 0 1px 0 rgba(255,255,255,.06);
+          animation: fadeUp .7s ease both;
+        }
+        @keyframes fadeUp {
+          from { opacity:0; transform:translateY(28px); }
+          to   { opacity:1; transform:translateY(0); }
+        }
+        .badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          background: rgba(56,189,248,.12);
+          border: 1px solid rgba(56,189,248,.35);
+          border-radius: 999px;
+          padding: 4px 14px;
+          font-family: 'Space Mono', monospace;
+          font-size: .72rem;
+          color: var(--blue-neon);
+          letter-spacing: .08em;
+          margin-bottom: 28px;
+          animation: fadeUp .7s .1s ease both;
+        }
+        .badge::before {
+          content: '';
+          width: 7px; height: 7px;
+          background: var(--blue-neon);
+          border-radius: 50%;
+          box-shadow: 0 0 6px var(--blue-neon);
+          animation: pulse 1.8s ease-in-out infinite;
+        }
+        @keyframes pulse {
+          0%,100% { opacity:1; transform:scale(1); }
+          50%      { opacity:.4; transform:scale(.8); }
+        }
+        h1 {
+          font-size: 2.4rem;
+          font-weight: 800;
+          line-height: 1.1;
+          letter-spacing: -.02em;
+          margin-bottom: 14px;
+          background: linear-gradient(135deg, var(--white) 30%, var(--blue-neon));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          animation: fadeUp .7s .15s ease both;
+        }
+        p {
+          color: var(--blue-light);
+          font-size: 1rem;
+          line-height: 1.65;
+          opacity: .8;
+          animation: fadeUp .7s .2s ease both;
+        }
+        .divider {
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(56,189,248,.3), transparent);
+          margin: 32px 0;
+          animation: fadeUp .7s .25s ease both;
+        }
+        .info-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 14px;
+          animation: fadeUp .7s .3s ease both;
+        }
+        .info-box {
+          background: rgba(26,86,219,.15);
+          border: 1px solid rgba(56,189,248,.15);
+          border-radius: 12px;
+          padding: 16px;
+        }
+        .info-box .label {
+          font-family: 'Space Mono', monospace;
+          font-size: .65rem;
+          letter-spacing: .1em;
+          color: var(--blue-neon);
+          opacity: .7;
+          text-transform: uppercase;
+          margin-bottom: 6px;
+        }
+        .info-box .value {
+          font-size: .95rem;
+          font-weight: 700;
+          color: var(--white);
+        }
+        .btn {
+          display: inline-block;
+          margin-top: 30px;
+          padding: 13px 36px;
+          background: var(--blue-bright);
+          border: none;
+          border-radius: 10px;
+          font-family: 'Syne', sans-serif;
+          font-size: .95rem;
+          font-weight: 700;
+          color: #fff;
+          cursor: pointer;
+          letter-spacing: .02em;
+          box-shadow: 0 0 24px rgba(26,86,219,.5);
+          transition: background .2s, transform .15s, box-shadow .2s;
+          animation: fadeUp .7s .35s ease both;
+        }
+        .btn:hover {
+          background: #1d4ed8;
+          transform: translateY(-2px);
+          box-shadow: 0 0 36px rgba(56,189,248,.5);
+        }
+        .btn:active { transform: translateY(0); }
+        footer {
+          margin-top: 28px;
+          font-family: 'Space Mono', monospace;
+          font-size: .68rem;
+          color: rgba(186,230,253,.35);
+          letter-spacing: .08em;
+          animation: fadeUp .7s .4s ease both;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="card">
+        <div class="badge">● ArgoCD · Deploy Test</div>
+        <h1>Hello, ArgoCD!</h1>
+        <p>Aplicação de teste para validar o pipeline de deploy contínuo com ArgoCD e GitOps.</p>
+        <div class="divider"></div>
+        <div class="info-grid">
+          <div class="info-box">
+            <div class="label">Status</div>
+            <div class="value">✅ Online</div>
+          </div>
+          <div class="info-box">
+            <div class="label">Ambiente</div>
+            <div class="value">Production</div>
+          </div>
+          <div class="info-box">
+            <div class="label">Versão</div>
+            <div class="value">v1.0.0</div>
+          </div>
+          <div class="info-box">
+            <div class="label">Plataforma</div>
+            <div class="value">Kubernetes</div>
+          </div>
+        </div>
+        <button class="btn" onclick="this.textContent='✔ Sincronizado!'">Sincronizar App</button>
+      </div>
+      <footer>BUILD · 2026 · ARGOCD TEST APP</footer>
+    </body>
+    </html>
+
+---
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: guestbook
-  namespace: argocd
+  namespace: default
+  labels:
+    app: guestbook
 spec:
-  project: default
-  source:
-    repoURL: https://github.com/alexsandroe/guestbook
-    targetRevision: HEAD
-    path: guestbook
-  destination: 
-    server: https://192.168.49.2:8443
-    namespace: default
+  replicas: 1
+  selector:
+    matchLabels:
+      app: guestbook
+  template:
+    metadata:
+      labels:
+        app: guestbook
+    spec:
+      containers:
+        - name: guestbook
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: html
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: html
+          configMap:
+            name: guestbook-html
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: guestbook
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    app: guestbook
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30080
